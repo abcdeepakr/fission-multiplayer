@@ -18,6 +18,8 @@ const btnStart = document.getElementById('btn-start');
 const btnHome = document.getElementById('btn-home');
 const displayRoomCode = document.getElementById('display-room-code');
 const displayRoomCodePlain = document.getElementById('display-room-code-plain');
+const btnCopy = document.getElementById('btn-copy');
+const btnShare = document.getElementById('btn-share');
 const roomCodeContainer = document.getElementById('room-code-container');
 const playersUl = document.getElementById('players-ul');
 
@@ -73,19 +75,33 @@ btnHome.addEventListener('click', () => {
     window.location.reload();
 });
 
-displayRoomCode.addEventListener('click', () => {
-    if (!currentRoomCode) return;
-
-    // Create the full share link
+function getInviteText() {
     const inviteLink = `https://fission-multiplayer.onrender.com/?room=${currentRoomCode}`;
+    return `JOIN room to play fission: ${inviteLink}`;
+}
 
-    navigator.clipboard.writeText(`JOIN room to play fission: ${inviteLink}`).then(() => {
+btnCopy.addEventListener('click', () => {
+    if (!currentRoomCode) return;
+    navigator.clipboard.writeText(getInviteText()).then(() => {
         const toast = document.getElementById('copy-toast');
         if (toast) {
             toast.style.display = 'block';
             setTimeout(() => { toast.style.display = 'none'; }, 2000);
         }
     });
+});
+
+btnShare.addEventListener('click', () => {
+    if (!currentRoomCode) return;
+    const text = getInviteText();
+    if (navigator.share) {
+        navigator.share({
+            title: 'Fission Multiplayer',
+            text: text
+        }).catch(err => console.log('Error sharing', err));
+    } else {
+        alert("Web Share is not supported in this browser. Please use Copy instead.");
+    }
 });
 
 socket.on('room_created', (code) => {

@@ -44,9 +44,14 @@
 
       <div id="room-code-container" class="room-code-container"
         style="display: none; margin-top: 25px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px dashed var(--neon-blue);">
-        <p style="margin-bottom: 5px; font-size: 0.9rem; color: #aaa;">Invite Friends (Click to Copy)</p>
-        <h2 id="display-room-code" style="cursor: pointer; letter-spacing: 5px; color: var(--neon-pink);"
-          title="Click to copy">----</h2>
+        <p style="margin-bottom: 5px; font-size: 0.9rem; color: #aaa;">Invite Friends</p>
+        <div style="display: flex; gap: 15px; justify-content: center; align-items: center; margin-bottom: 10px;">
+          <button id="btn-copy" class="neon-button secondary"
+            style="padding: 5px 15px; width: auto; font-size: 0.9rem;">Copy Link</button>
+          <button id="btn-share" class="neon-button primary"
+            style="padding: 5px 15px; width: auto; font-size: 0.9rem;">Share Link</button>
+        </div>
+        <h2 id="display-room-code" style="letter-spacing: 5px; color: var(--neon-pink); margin-top: 10px;">----</h2>
         <span id="copy-toast" style="display:none; color: var(--neon-green); font-size: 0.8rem; margin-top: 5px;">Copied
           to clipboard!</span>
       </div>
