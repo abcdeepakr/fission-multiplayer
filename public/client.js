@@ -151,7 +151,7 @@ socket.on('board_update', (room) => {
 
 socket.on('game_over', (data) => {
     currentTurnName.innerText = `${data.winner} WINS!`;
-    currentTurnName.style.color = 'var(--neon-green)';
+    currentTurnName.style.color = '#ff0000';
     gameOverMsg.style.display = 'block';
     btnHome.style.display = 'inline-block';
 

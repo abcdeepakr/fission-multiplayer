@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fission - Multiplayer Chain Reaction</title>
+  <title>Fission - Windows 98 Edition</title>
+  <!-- Using 98.css from CDN for genuine windows 98 aesthetic -->
+  <link rel="stylesheet" href="https://unpkg.com/98.css">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -12,67 +14,97 @@
 
   <div id="app">
     <!-- Start Screen -->
-    <div id="start-screen" class="screen active">
-      <h1>Fission</h1>
-      <p>Multiplayer Chain Reaction</p>
+    <div id="start-screen" class="screen active window">
+      <div class="title-bar">
+        <div class="title-bar-text">Fission_Multiplayer.exe</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body" style="padding: 10px;">
+        <p style="text-align: center; margin-bottom: 15px;">Welcome to Fission!</p>
 
-      <div class="card">
-        <input type="text" id="player-name" placeholder="Enter Display Name" maxlength="15">
+        <div class="field-row" style="margin-bottom: 10px;">
+          <label for="player-name" style="width: 50px;">Name:</label>
+          <input type="text" id="player-name" placeholder="Guest" maxlength="15" style="flex: 1;">
+        </div>
 
-        <div class="actions">
-          <button id="btn-create" class="neon-button primary">Create Room</button>
+        <div class="actions" style="margin-top: 15px;">
+          <button id="btn-create" style="width: 100%; margin-bottom: 10px; font-weight: bold;">Create Room</button>
 
-          <div class="divider">OR</div>
-
-          <div class="join-group">
-            <input type="text" id="room-code-input" placeholder="Room Code" maxlength="4"
-              style="text-transform: uppercase;">
-            <button id="btn-join" class="neon-button secondary">Join</button>
-          </div>
+          <fieldset>
+            <legend>Join Existing Room</legend>
+            <div class="field-row">
+              <label for="room-code-input" style="width: 50px;">Code:</label>
+              <input type="text" id="room-code-input" placeholder="ABCD" maxlength="4"
+                style="text-transform: uppercase; width: 60px;">
+              <button id="btn-join" style="margin-left: 10px; flex: 1;">Join</button>
+            </div>
+          </fieldset>
         </div>
       </div>
     </div>
 
     <!-- Lobby Screen -->
-    <div id="lobby-screen" class="screen">
-      <h2>Room: <span id="display-room-code-plain">----</span></h2>
-
-      <div class="players-list card">
-        <h3>Players</h3>
-        <ul id="players-ul"></ul>
-      </div>
-
-      <div id="room-code-container" class="room-code-container"
-        style="display: none; margin-top: 25px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px dashed var(--neon-blue);">
-        <p style="margin-bottom: 5px; font-size: 0.9rem; color: #aaa;">Invite Friends</p>
-        <div style="display: flex; gap: 15px; justify-content: center; align-items: center; margin-bottom: 10px;">
-          <button id="btn-copy" class="neon-button secondary"
-            style="padding: 5px 15px; width: auto; font-size: 0.9rem;">Copy Link</button>
-          <button id="btn-share" class="neon-button primary"
-            style="padding: 5px 15px; width: auto; font-size: 0.9rem;">Share Link</button>
+    <div id="lobby-screen" class="screen window">
+      <div class="title-bar">
+        <div class="title-bar-text">Lobby - Room <span id="display-room-code-plain">----</span></div>
+        <div class="title-bar-controls">
+          <button aria-label="Close"></button>
         </div>
-        <h2 id="display-room-code" style="letter-spacing: 5px; color: var(--neon-pink); margin-top: 10px;">----</h2>
-        <span id="copy-toast" style="display:none; color: var(--neon-green); font-size: 0.8rem; margin-top: 5px;">Copied
-          to clipboard!</span>
       </div>
 
-      <div class="host-controls" style="margin-top: 20px;">
-        <button id="btn-start" class="neon-button success" style="display:none">Start Game</button>
+      <div class="window-body" style="padding: 10px;">
+        <fieldset>
+          <legend>Players Connected</legend>
+          <ul id="players-ul" class="tree-view" style="height: 80px; overflow: auto; background: #fff;"></ul>
+        </fieldset>
+
+        <fieldset id="room-code-container" style="display: none; margin-top: 10px;">
+          <legend>Invite Details</legend>
+          <div style="display: flex; gap: 5px; align-items: center; justify-content: center; margin-bottom: 5px;">
+            <button id="btn-copy">Copy Link</button>
+            <button id="btn-share">Share Link</button>
+          </div>
+          <div style="text-align: center; font-weight: bold; background: #fff; border: inset 2px #dfdfdf; padding: 4px;"
+            id="display-room-code">----</div>
+          <p id="copy-toast"
+            style="display:none; color: #000080; text-align: center; margin-top: 5px; font-weight: bold;">Copied to
+            clipboard!</p>
+        </fieldset>
+
+        <div class="host-controls" style="margin-top: 15px;">
+          <button id="btn-start" style="display:none; font-weight: bold; width: 100%;">Start Game</button>
+        </div>
       </div>
     </div>
 
     <!-- Game Screen -->
-    <div id="game-screen" class="screen">
-      <!-- Game Board will be injected here -->
-      <div id="game-info">
-        <h3>Turn: <span id="current-turn-name">Wait</span></h3>
-        <p id="game-over-msg"
-          style="display:none; margin-top: 5px; color: var(--neon-blue-dim); font-weight: bold; letter-spacing: 1.5px;">
-          THE CHAIN REACTION HAS SETTLED.</p>
-        <button id="btn-home" class="neon-button primary" style="display:none; margin-top: 15px; padding: 8px;">Main
-          Menu</button>
+    <div id="game-screen" class="screen window" style="max-width: 600px;">
+      <div class="title-bar">
+        <div class="title-bar-text">Fission_Board.exe</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
+        </div>
       </div>
-      <div id="board-container"></div>
+
+      <div class="window-body" style="padding: 10px;">
+        <div id="game-info"
+          style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <p style="margin: 0; font-weight: bold;">Turn: <span id="current-turn-name">Wait</span></p>
+          <p id="game-over-msg" style="display:none; color: #ff0000; font-weight: bold; margin: 0;">THE CHAIN REACTION
+            HAS SETTLED.</p>
+          <button id="btn-home" style="display:none;">Main Menu</button>
+        </div>
+
+        <div class="sunken-panel" style="padding: 2px;">
+          <div id="board-container"></div>
+        </div>
+      </div>
     </div>
   </div>
 

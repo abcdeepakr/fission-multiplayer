@@ -1,225 +1,73 @@
-:root {
-    --bg-color: #0b0c10;
-    --card-bg: #1f2833;
-    --text-primary: #c5c6c7;
-    --neon-blue: #66fcf1;
-    --neon-blue-dim: #45a29e;
-    --neon-pink: #ff00ff;
-    --neon-green: #00ff00;
-    --font-main: 'Inter', 'Segoe UI', sans-serif;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body {
-    font-family: var(--font-main);
-    background-color: var(--bg-color);
-    color: var(--text-primary);
+    background-color: #008080;
+    /* Classic Win98 Teal */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    margin: 0;
     overflow: hidden;
 }
 
 #app {
     width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    text-align: center;
+    max-width: 400px;
+    padding: 10px;
 }
 
 .screen {
     display: none;
-    animation: fadeIn 0.3s ease-out;
 }
 
 .screen.active {
     display: block;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Custom Grid List for Players via 98.css */
+#players-ul li {
+    padding: 2px 4px;
 }
 
-h1 {
-    font-size: 3rem;
-    color: var(--neon-blue);
-    text-shadow: 0 0 10px var(--neon-blue);
-    margin-bottom: 5px;
-    letter-spacing: 2px;
-}
-
-p {
-    margin-bottom: 30px;
-    color: var(--neon-blue-dim);
-}
-
-.card {
-    background: var(--card-bg);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--neon-blue-dim);
-    border-radius: 6px;
-    color: white;
-    font-size: 1.1rem;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-input[type="text"]:focus {
-    border-color: var(--neon-blue);
-    box-shadow: 0 0 8px var(--neon-blue);
-}
-
-.neon-button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
-}
-
-.neon-button.primary {
-    background: transparent;
-    color: var(--neon-blue);
-    border: 2px solid var(--neon-blue);
-}
-
-.neon-button.primary:hover {
-    background: var(--neon-blue);
-    color: var(--bg-color);
-    box-shadow: 0 0 15px var(--neon-blue);
-}
-
-.neon-button.secondary {
-    background: transparent;
-    color: var(--neon-pink);
-    border: 2px solid var(--neon-pink);
-}
-
-.neon-button.secondary:hover {
-    background: var(--neon-pink);
-    color: var(--bg-color);
-    box-shadow: 0 0 15px var(--neon-pink);
-}
-
-.neon-button.success {
-    background: transparent;
-    color: var(--neon-green);
-    border: 2px solid var(--neon-green);
-    margin-top: 15px;
-}
-
-.neon-button.success:hover {
-    background: var(--neon-green);
-    color: var(--bg-color);
-    box-shadow: 0 0 15px var(--neon-green);
-}
-
-.divider {
-    margin: 20px 0;
-    font-size: 0.9rem;
-    color: #777;
-}
-
-.join-group {
-    display: flex;
-    gap: 10px;
-}
-
-.join-group input {
-    margin-bottom: 0;
-    flex: 2;
-    text-align: center;
-}
-
-.join-group button {
-    flex: 1;
-}
-
-ul {
-    list-style: none;
-    text-align: left;
-    margin-top: 15px;
-}
-
-ul li {
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.2);
-    margin-bottom: 5px;
-    border-left: 4px solid var(--neon-blue);
-    border-radius: 4px;
-}
-
-/* --- GAME BOARD --- */
-
+/* Fission Board overriding 98.css bounds */
 #game-screen {
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-#game-info {
-    margin-bottom: 15px;
+    max-width: 600px !important;
 }
 
 #board-container {
     display: grid;
     grid-template-columns: repeat(var(--cols, 6), 1fr);
-    gap: 2px;
-    background-color: var(--neon-blue-dim);
-    border: 4px solid var(--neon-blue);
-    border-radius: 8px;
-    padding: 2px;
+    gap: 1px;
+    background-color: #808080;
     aspect-ratio: 6/9;
 }
 
 .cell {
-    background-color: var(--bg-color);
+    background-color: #c0c0c0;
+    border-top: 2px solid #dfdfdf;
+    border-left: 2px solid #dfdfdf;
+    border-bottom: 2px solid #000;
+    border-right: 2px solid #000;
     aspect-ratio: 1/1;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     position: relative;
-    overflow: hidden;
-    transition: background-color 0.2s;
 }
 
-.cell:hover {
-    background-color: #1a1e24;
+.cell:active {
+    border-top: 2px solid #000;
+    border-left: 2px solid #000;
+    border-bottom: 2px solid #dfdfdf;
+    border-right: 2px solid #dfdfdf;
+    background-color: #a0a0a0;
 }
 
 .atom-container {
     width: 80%;
     height: 80%;
     position: relative;
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -230,38 +78,41 @@ ul li {
     height: 40%;
     border-radius: 50%;
     position: absolute;
+    border: 1px solid #000;
+    box-shadow: inset -2px -2px rgba(0, 0, 0, 0.5), inset 2px 2px rgba(255, 255, 255, 0.8) !important;
 }
 
-/* Base positions for particles */
+/* Rigid positions for particles to look pixelated and flat */
 .p1 {
     transform: translate(0, 0);
 }
 
 .p2 {
-    transform: translate(-22%, -22%);
+    transform: translate(-20%, -20%);
 }
 
 .p3 {
-    transform: translate(22%, 22%);
+    transform: translate(20%, 20%);
 }
 
 .p4 {
-    transform: translate(-22%, 22%);
+    transform: translate(-20%, 20%);
 }
 
+/* Rigid old-school rotation mimicking low framerate screensavers */
 .spin-slow {
-    animation: spin 4s linear infinite;
+    animation: rigid-spin 2s steps(4) infinite;
 }
 
 .spin-med {
-    animation: spin 2s linear infinite;
+    animation: rigid-spin 1s steps(4) infinite;
 }
 
 .spin-fast {
-    animation: spin 1s linear infinite;
+    animation: rigid-spin 0.5s steps(4) infinite;
 }
 
-@keyframes spin {
+@keyframes rigid-spin {
     100% {
         transform: rotate(360deg);
     }
