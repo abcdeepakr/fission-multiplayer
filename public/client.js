@@ -28,8 +28,21 @@ const gameOverMsg = document.getElementById('game-over-msg');
 let currentRoomCode = '';
 let myId = '';
 
+// Pre-fill room code if joined via invite link
+const urlParams = new URLSearchParams(window.location.search);
+const joinParam = urlParams.get('room');
+let autoJoin = false;
+if (joinParam && joinParam.length === 4) {
+    inputs.roomCode.value = joinParam.toUpperCase();
+    autoJoin = true;
+}
+
 socket.on('connect', () => {
     myId = socket.id;
+    if (autoJoin) {
+        btnJoin.click();
+        autoJoin = false;
+    }
 });
 
 function showScreen(screenId) {
@@ -62,7 +75,11 @@ btnHome.addEventListener('click', () => {
 
 displayRoomCode.addEventListener('click', () => {
     if (!currentRoomCode) return;
-    navigator.clipboard.writeText(`JOIN room to play fission:${currentRoomCode}`).then(() => {
+
+    // Create the full share link
+    const inviteLink = `https://fission-multiplayer.onrender.com/?room=${currentRoomCode}`;
+
+    navigator.clipboard.writeText(`JOIN room to play fission: ${inviteLink}`).then(() => {
         const toast = document.getElementById('copy-toast');
         if (toast) {
             toast.style.display = 'block';
