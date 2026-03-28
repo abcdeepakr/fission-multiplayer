@@ -1,0 +1,268 @@
+:root {
+    --bg-color: #0b0c10;
+    --card-bg: #1f2833;
+    --text-primary: #c5c6c7;
+    --neon-blue: #66fcf1;
+    --neon-blue-dim: #45a29e;
+    --neon-pink: #ff00ff;
+    --neon-green: #00ff00;
+    --font-main: 'Inter', 'Segoe UI', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#app {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    text-align: center;
+}
+
+.screen {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    font-size: 3rem;
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px var(--neon-blue);
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+}
+
+p {
+    margin-bottom: 30px;
+    color: var(--neon-blue-dim);
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--neon-blue-dim);
+    border-radius: 6px;
+    color: white;
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 8px var(--neon-blue);
+}
+
+.neon-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.neon-button.primary {
+    background: transparent;
+    color: var(--neon-blue);
+    border: 2px solid var(--neon-blue);
+}
+
+.neon-button.primary:hover {
+    background: var(--neon-blue);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+
+.neon-button.secondary {
+    background: transparent;
+    color: var(--neon-pink);
+    border: 2px solid var(--neon-pink);
+}
+
+.neon-button.secondary:hover {
+    background: var(--neon-pink);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px var(--neon-pink);
+}
+
+.neon-button.success {
+    background: transparent;
+    color: var(--neon-green);
+    border: 2px solid var(--neon-green);
+    margin-top: 15px;
+}
+
+.neon-button.success:hover {
+    background: var(--neon-green);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px var(--neon-green);
+}
+
+.divider {
+    margin: 20px 0;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.join-group {
+    display: flex;
+    gap: 10px;
+}
+
+.join-group input {
+    margin-bottom: 0;
+    flex: 2;
+    text-align: center;
+}
+
+.join-group button {
+    flex: 1;
+}
+
+ul {
+    list-style: none;
+    text-align: left;
+    margin-top: 15px;
+}
+
+ul li {
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    margin-bottom: 5px;
+    border-left: 4px solid var(--neon-blue);
+    border-radius: 4px;
+}
+
+/* --- GAME BOARD --- */
+
+#game-screen {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#game-info {
+    margin-bottom: 15px;
+}
+
+#board-container {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 6), 1fr);
+    gap: 2px;
+    background-color: var(--neon-blue-dim);
+    border: 4px solid var(--neon-blue);
+    border-radius: 8px;
+    padding: 2px;
+    aspect-ratio: 6/9;
+}
+
+.cell {
+    background-color: var(--bg-color);
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.2s;
+}
+
+.cell:hover {
+    background-color: #1a1e24;
+}
+
+.atom-container {
+    width: 80%;
+    height: 80%;
+    position: relative;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.particle {
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    position: absolute;
+}
+
+/* Base positions for particles */
+.p1 {
+    transform: translate(0, 0);
+}
+
+.p2 {
+    transform: translate(-22%, -22%);
+}
+
+.p3 {
+    transform: translate(22%, 22%);
+}
+
+.p4 {
+    transform: translate(-22%, 22%);
+}
+
+.spin-slow {
+    animation: spin 4s linear infinite;
+}
+
+.spin-med {
+    animation: spin 2s linear infinite;
+}
+
+.spin-fast {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
